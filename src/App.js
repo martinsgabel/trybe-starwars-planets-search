@@ -1,9 +1,14 @@
 import React from 'react';
-import './App.css';
+import StarProvider from './StarContext/StarProvider';
+import ListFilter from './Components/ListFilter';
+import Header from './Components/Header';
 
 function App() {
   return (
-    <span>Hello, App!</span>
+    <StarProvider>
+      <Header />
+      <ListFilter />
+    </StarProvider>
   );
 }
 
