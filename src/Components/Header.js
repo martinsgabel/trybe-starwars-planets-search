@@ -98,21 +98,30 @@ function Header() {
         />
 
         <button
-          type="button"
           data-testid="button-filter"
+          type="button"
           onClick={ handleNumbericValues }
         >
           Filtrar
         </button>
+
+        <button
+          data-testid="button-remove-filters"
+          type="button"
+          onClick={ () => setFilterByNumericValues([]) }
+        >
+          Remover Filtros
+        </button>
       </div>
       {filterByNumericValues.map((filter, ind) => (
-        <div key={ `${filter.column}-${ind}` }>
+        <div data-testid="filter" key={ `${filter.column}-${ind}` }>
           <p
             key={ `${filter.column}-${ind}` }
           >
             {`${filter.column} ${filter.comparison} ${filter.value}`}
           </p>
           <button
+            data-testid="filter"
             type="button"
             key={ `${filter.column}` }
             onClick={ () => handleDeleteFilter(ind) }
