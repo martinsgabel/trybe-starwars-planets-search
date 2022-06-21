@@ -1,13 +1,41 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import StarContext from '../StarContext/StarContext';
 
 function Header() {
-  const { filterByName, setFilterByName,
-    filterByNumericValues, setFilterByNumericValues } = useContext(StarContext);
+  const { filterByName, setFilterByName, setFilteredPlanets,
+    planets, filterByNumericValues, setFilterByNumericValues } = useContext(StarContext);
 
   const [columnF, setColumnF] = useState('population');
   const [comparisonF, setComparisonF] = useState('maior que');
   const [valueF, setValueF] = useState(0);
+
+  useEffect(() => {
+    const filteredPlanetsByName = planets
+      .filter((planet) => planet.name.toLowerCase().includes(filterByName));
+
+    const filtersResult = filterByNumericValues.reduce((acc, filter) => (
+      acc.filter((planeta) => {
+        switch (filter.comparison) {
+        case 'maior que':
+          return planeta[filter.column] > Number(filter.value);
+        case 'menor que':
+          return planeta[filter.column] < Number(filter.value);
+        case 'igual a':
+          return planeta[filter.column] === Number(filter.value);
+        default:
+          return true;
+        }
+      })
+    ), filteredPlanetsByName);
+
+    console.log(filtersResult);
+
+    setFilteredPlanets(filteredPlanetsByName);
+  }, [planets, filterByName, filterByNumericValues]);
+
+  function handleFilterByName({ target }) {
+    setFilterByName(target.value.toLowerCase());
+  }
 
   function handleNumbericValues() {
     setFilterByNumericValues(
@@ -28,7 +56,7 @@ function Header() {
           data-testid="name-filter"
           placeholder="nome"
           value={ filterByName }
-          onChange={ (e) => setFilterByName(e.target.value.toLowerCase()) }
+          onChange={ handleFilterByName }
         />
       </div>
       <div>

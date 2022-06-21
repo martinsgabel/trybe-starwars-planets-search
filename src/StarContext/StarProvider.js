@@ -6,6 +6,7 @@ function StarProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [filterByName, setFilterByName] = useState('');
   const [filterByNumericValues, setFilterByNumericValues] = useState([]);
+  const [filteredPlanets, setFilteredPlanets] = useState([]);
 
   const contextValue = {
     planets,
@@ -13,6 +14,8 @@ function StarProvider({ children }) {
     setFilterByName,
     filterByNumericValues,
     setFilterByNumericValues,
+    filteredPlanets,
+    setFilteredPlanets,
   };
 
   useEffect(() => {
@@ -23,6 +26,7 @@ function StarProvider({ children }) {
     }
     getPlanets();
   }, []);
+
   return (
     <StarContext.Provider value={ contextValue }>
       { children }
