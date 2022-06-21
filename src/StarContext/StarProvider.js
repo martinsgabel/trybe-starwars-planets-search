@@ -5,10 +5,14 @@ import StarContext from './StarContext';
 function StarProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [filterByName, setFilterByName] = useState('');
+  const [filterByNumericValues, setFilterByNumericValues] = useState([]);
+
   const contextValue = {
     planets,
     filterByName,
     setFilterByName,
+    filterByNumericValues,
+    setFilterByNumericValues,
   };
 
   useEffect(() => {

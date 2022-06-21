@@ -5,7 +5,7 @@ function ListFilter() {
   const { planets, filterByName } = useContext(StarContext);
 
   function filterName() {
-    return planets.filter((planet) => planet.name.includes(filterByName));
+    return planets.filter((planet) => planet.name.toLowerCase().includes(filterByName));
   }
 
   return (
