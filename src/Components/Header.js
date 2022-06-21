@@ -1,6 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import StarContext from '../StarContext/StarContext';
 
+// igual não está funcionando
+// alguns filtros não funcionam
+// não descobri como fazer o botão de delete funcionar
+
 function Header() {
   const { filterByName, setFilterByName, setFilteredPlanets,
     planets, filterByNumericValues, setFilterByNumericValues } = useContext(StarContext);
@@ -46,6 +50,11 @@ function Header() {
           value: valueF,
         }],
     );
+  }
+
+  function handleDeleteFilter(ind) {
+    return setFilterByNumericValues(filterByNumericValues
+      .filter((_item, itemInd) => itemInd !== ind));
   }
 
   return (
@@ -96,6 +105,22 @@ function Header() {
           Filtrar
         </button>
       </div>
+      {filterByNumericValues.map((filter, ind) => (
+        <div key={ `${filter.column}-${ind}` }>
+          <p
+            key={ `${filter.column}-${ind}` }
+          >
+            {`${filter.column} ${filter.comparison} ${filter.value}`}
+          </p>
+          <button
+            type="button"
+            key={ `${filter.column}` }
+            onClick={ () => handleDeleteFilter(ind) }
+          >
+            Delete
+          </button>
+        </div>
+      ))}
     </div>
   );
 }
