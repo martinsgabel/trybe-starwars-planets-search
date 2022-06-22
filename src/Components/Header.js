@@ -10,7 +10,8 @@ function Header() {
   const [columnF, setColumnF] = useState('population');
   const [comparisonF, setComparisonF] = useState('maior que');
   const [valueF, setValueF] = useState(0);
-  const [filteredColmun, setFilteredColmun] = useState('');
+  const [filteredColmun, setFilteredColmun] = useState(['population', 'orbital_period',
+    'diameter', 'rotation_period', 'surface_water']);
 
   useEffect(() => {
     const filteredPlanetsByName = planets
@@ -58,9 +59,7 @@ function Header() {
 
   function handleColumn({ target }) {
     setColumnF(target.value);
-    const listColumn = ['population', 'orbital_period',
-      'diameter', 'rotation_period', 'surface_water'];
-    setFilteredColmun(listColumn.filter((col) => col !== target.value));
+    setFilteredColmun(filteredColmun.filter((col) => col !== target.value));
   }
 
   return (
