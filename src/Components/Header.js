@@ -50,16 +50,13 @@ function Header() {
           value: valueF,
         }],
     );
+
+    setFilteredColmun(filteredColmun.filter((col) => col !== columnF));
   }
 
   function handleDeleteFilter(ind) {
     return setFilterByNumericValues(filterByNumericValues
       .filter((_item, itemInd) => itemInd !== ind));
-  }
-
-  function handleColumn({ target }) {
-    setColumnF(target.value);
-    setFilteredColmun(filteredColmun.filter((col) => col !== target.value));
   }
 
   return (
@@ -77,7 +74,7 @@ function Header() {
         <select
           data-testid="column-filter"
           value={ columnF }
-          onChange={ handleColumn }
+          onChange={ (e) => setColumnF(e.target.value) }
         >
           { filteredColmun.map((col) => (
             <option key={ col }>{ col }</option>
