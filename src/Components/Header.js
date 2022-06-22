@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import StarContext from '../StarContext/StarContext';
 
-// igual não está funcionando
-// alguns filtros não funcionam
-// não descobri como fazer o botão de delete funcionar
+// onde colocar os sets que irão "excluir" as opções do select?
 
 function Header() {
   const { filterByName, setFilterByName, setFilteredPlanets,
@@ -12,6 +10,7 @@ function Header() {
   const [columnF, setColumnF] = useState('population');
   const [comparisonF, setComparisonF] = useState('maior que');
   const [valueF, setValueF] = useState(0);
+  const [filteredColmun, setFilteredColmun] = useState('');
 
   useEffect(() => {
     const filteredPlanetsByName = planets
@@ -25,7 +24,7 @@ function Header() {
         case 'menor que':
           return planeta[filter.column] < Number(filter.value);
         case 'igual a':
-          return planeta[filter.column] === Number(filter.value);
+          return planeta[filter.column] === filter.value;
         default:
           return true;
         }
@@ -34,7 +33,7 @@ function Header() {
 
     console.log(filtersResult);
 
-    setFilteredPlanets(filteredPlanetsByName);
+    setFilteredPlanets(filtersResult);
   }, [planets, filterByName, filterByNumericValues]);
 
   function handleFilterByName({ target }) {
@@ -57,6 +56,13 @@ function Header() {
       .filter((_item, itemInd) => itemInd !== ind));
   }
 
+  function handleColumn({ target }) {
+    setColumnF(target.value);
+    const listColumn = ['population', 'orbital_period',
+      'diameter', 'rotation_period', 'surface_water'];
+    setFilteredColmun(listColumn.filter((col) => col !== target.value));
+  }
+
   return (
     <div>
       <h1>Star Wars Project</h1>
@@ -72,13 +78,11 @@ function Header() {
         <select
           data-testid="column-filter"
           value={ columnF }
-          onChange={ (e) => setColumnF(e.target.value) }
+          onChange={ handleColumn }
         >
-          <option>population</option>
-          <option>orbital_period</option>
-          <option>diameter</option>
-          <option>rotation_period</option>
-          <option>surface_water</option>
+          { filteredColmun.map((col) => (
+            <option key={ col }>{ col }</option>
+          ))}
         </select>
 
         <select

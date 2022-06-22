@@ -7,6 +7,11 @@ function StarProvider({ children }) {
   const [filterByName, setFilterByName] = useState('');
   const [filterByNumericValues, setFilterByNumericValues] = useState([]);
   const [filteredPlanets, setFilteredPlanets] = useState([]);
+  const [waterAvailabitly, setWaterAvailabitly] = useState(true);
+  const [rotationAvailabitly, setRotationAvailabitly] = useState(true);
+  const [diameterAvailabitly, setDiameterAvailabitly] = useState(true);
+  const [orbitalAvailabitly, setOrbitalAvailabitly] = useState(true);
+  const [populationAvailabitly, setPopulationAvailabitly] = useState(true);
 
   const contextValue = {
     planets,
@@ -16,6 +21,16 @@ function StarProvider({ children }) {
     setFilterByNumericValues,
     filteredPlanets,
     setFilteredPlanets,
+    waterAvailabitly,
+    setWaterAvailabitly,
+    rotationAvailabitly,
+    setRotationAvailabitly,
+    diameterAvailabitly,
+    setDiameterAvailabitly,
+    orbitalAvailabitly,
+    setOrbitalAvailabitly,
+    populationAvailabitly,
+    setPopulationAvailabitly,
   };
 
   useEffect(() => {
